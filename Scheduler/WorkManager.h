@@ -32,10 +32,10 @@ class WorkManager
 public:
 	WorkManager(int iPort);
 	~WorkManager();
-	void StartServer();
-	void StopServer();
 	void AddTask(double a, double b, double eps);
 private:
+	void StartServer();
+	void StopServer();
 	void StartJob();
 	void StopJob();
 	void FillBufWithTask(Task t);

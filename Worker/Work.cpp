@@ -9,7 +9,7 @@ Work::Work(std::string sIP, int iPort)
 	WORD DllVersion = MAKEWORD(2, 1);
 	if (WSAStartup(DllVersion, &wsaData) != 0) 
 	{
-		MessageBoxA(NULL, "Winsock startup failed", "Error", MB_OK | MB_ICONERROR);
+		std::cerr << "WinSock startup failed" << std::endl;
 		return;
 	}
 	int sizeofaddr = sizeof(addr);
@@ -101,7 +101,7 @@ void ConnectThread(void* param)
 							ZeroMemory(&cParam->buf, BUF_LEN);
 							if (send(cParam->sConnection, cParam->buf, 5, 0) == PING_LEN)
 							{
-								std::cout << "Sheduler connected" << std::endl;
+								std::cerr << "Sheduler connected" << std::endl;
 								cParam->iConnThrState = 0;
 								CloseHandle(cParam->hConnecter);
 								cParam->hConnecter = 0;
@@ -184,7 +184,7 @@ void JobThread(void* param)
 				DWORD dwResult = WSAEnumNetworkEvents(cParam->sConnection, cParam->hSockEvent, &cParam->events);
 				if (cParam->events.lNetworkEvents & FD_CLOSE)
 				{
-					std::cout << "Sheduler disconnected" << std::endl;
+					std::cerr << "Sheduler disconnected" << std::endl;
 					closesocket(cParam->sConnection);
 					cParam->iJobThrState = 0;
 					CloseHandle(cParam->hJober);

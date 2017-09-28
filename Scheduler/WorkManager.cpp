@@ -8,7 +8,7 @@ WorkManager::WorkManager(int iPort)
 	WORD DllVersion = MAKEWORD(2, 1);
 	if (WSAStartup(DllVersion, &wsaData) != 0)
 	{
-		std::cout << "WinSock startup failed" << std::endl;
+		std::cerr << "WinSock startup failed" << std::endl;
 		return;
 	}
 
@@ -105,7 +105,7 @@ void JobThread(void* param)
 					{
 						closesocket(wmParam->vWorkers.at(i).s);
 						wmParam->vWorkers.erase(wmParam->vWorkers.begin() + i);
-						std::cout << "Worker disconnected" << std::endl;
+						std::cerr << "Worker disconnected" << std::endl;
 					}
 				}
 			}
@@ -155,7 +155,7 @@ void JobThread(void* param)
 								double a = *((double*)&wmParam->buf[1]);
 								double b = *((double*)&wmParam->buf[9]);
 								double eps = *((double*)&wmParam->buf[17]);
-								std::cout << "ellipse(" << a << ", " << b << ", " << eps << ") has wrong parameters" << std::endl;
+								std::cerr << "ellipse(" << a << ", " << b << ", " << eps << ") has wrong parameters" << std::endl;
 							}
 						}
 					}
@@ -284,7 +284,7 @@ void ConnectThread(void* param)
 									w.s = newConnection;
 									w.bBusy = false;
 									wmParam->vWorkers.push_back(w);
-									std::cout << "Worker connected" << std::endl;
+									std::cerr << "Worker connected" << std::endl;
 								}	
 								else
 									closesocket(newConnection);

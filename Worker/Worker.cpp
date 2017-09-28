@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 		}
 	}
 	else
-		std::cout << "Bad startup parameters!" << std::endl;
+		std::cerr << "Bad startup parameters!" << std::endl;
 	system("pause");
 }
 
